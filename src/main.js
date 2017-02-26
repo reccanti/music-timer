@@ -3,6 +3,10 @@ import {lyrics} from './testdata';
 import Lyric from './components/lyric.vue';
 import Vue from 'vue';
 
+/**
+ * The main app. Has methods to help updated
+ * in time with the Tone.js Transport
+ */
 const app = new Vue({
     el: '#app',
     data() {
@@ -27,6 +31,9 @@ const app = new Vue({
     }
 });
 
+/**
+ * A loop that updates the current lyric of the app
+ */
 let counter = 0;
 const loop = new Loop((time) => {
     if (counter < lyrics.length) {
@@ -34,6 +41,5 @@ const loop = new Loop((time) => {
     }
     counter++;
 }, '1m');
-
 loop.start('0m');
 Transport.start();
