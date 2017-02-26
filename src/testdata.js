@@ -1,5 +1,5 @@
 
-export const data = [// [Steven]
+export const lyrics = [// [Steven]
     "Life and death and love and birth",
     "And peace and war on the planet Earth",
     "Is there anything that's worth",

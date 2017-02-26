@@ -1,23 +1,39 @@
 import {Synth, Loop, Transport} from 'tone';
-import {data} from './testdata';
+import {lyrics} from './testdata';
+import Lyric from './components/lyric.vue';
+import Vue from 'vue';
 
-// const synth = new Synth().toMaster();
-// synth.triggerAttackRelease("C4", "8n");
+const app = new Vue({
+    el: '#app',
+    data() {
+        return {
+            currentLyric: lyrics[0]
+        }
+    },
+    methods: {
+        updateLyrics: function(lyric) {
+            this.currentLyric = lyric;
+            this.$nextTick(function () {
+                console.log('updated!');
+                console.log(this.currentLyric);
+            });
+        }
+    },
+    render(h) {
+        return (
+            <Lyric lyric={this.currentLyric}>
+            </Lyric>
+        );
+    }
+});
 
 let counter = 0;
 const loop = new Loop((time) => {
-    if (counter < data.length) {
-        console.log(data[counter]);
+    if (counter < lyrics.length) {
+        app.updateLyrics(lyrics[counter]);
     }
     counter++;
 }, '1m');
 
 loop.start('0m');
-
-// Transport.scheduleRepeat((time) => {
-//     console.log(Transport.ticks);
-//     if (Transport.ticks < data.length) {
-//         console.log(data[Transport.ticks]);
-//     }
-// }, "1m");
 Transport.start();
