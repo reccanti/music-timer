@@ -12,6 +12,7 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
+            currentIndex: 0,
             currentLyric: lyrics[0],
             lyricList: lyrics
         }
@@ -23,6 +24,10 @@ const app = new Vue({
                 console.log('updated!');
                 console.log(this.currentLyric);
             });
+        },
+        setCurrent: function(current) {
+            this.currentIndex = current;
+            this.$nextTick();
         }
     },
     /*render(h) {
@@ -33,7 +38,7 @@ const app = new Vue({
     }*/
     render(h) {
         return (
-            <Lyrics list={lyrics}></Lyrics>
+            <Lyrics current={this.currentIndex} list={lyrics}></Lyrics>
         );
     }
 });
@@ -44,7 +49,7 @@ const app = new Vue({
 let counter = 0;
 const loop = new Loop((time) => {
     if (counter < lyrics.length) {
-        app.updateLyrics(lyrics[counter]);
+        app.setCurrent(counter);
     }
     counter++;
 }, '1m');

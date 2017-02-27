@@ -4,8 +4,9 @@
 <template>
     <ul>
         <li is="Lyric" 
-            v-for="line in list" 
-            v-bind:lyric="line">
+            v-for="(line, index) in list" 
+            v-bind:lyric="line"
+            v-bind:class="[index === current ? 'selected' : '' ]">
         </li>
     </ul>
 </template>
@@ -14,7 +15,8 @@
     import Lyric from './lyric.vue'
     export default {
         props: [
-            'list'
+            'list',
+            'current'
         ],
         components: {
             Lyric
