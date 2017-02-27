@@ -1,6 +1,7 @@
 import {Synth, Loop, Transport} from 'tone';
 import {lyrics} from './testdata';
 import Lyric from './components/lyric.vue';
+import Lyrics from './components/lyrics.vue';
 import Vue from 'vue';
 
 /**
@@ -11,7 +12,8 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-            currentLyric: lyrics[0]
+            currentLyric: lyrics[0],
+            lyricList: lyrics
         }
     },
     methods: {
@@ -23,10 +25,15 @@ const app = new Vue({
             });
         }
     },
-    render(h) {
+    /*render(h) {
         return (
             <Lyric lyric={this.currentLyric}>
             </Lyric>
+        );
+    }*/
+    render(h) {
+        return (
+            <Lyrics list={lyrics}></Lyrics>
         );
     }
 });
@@ -41,5 +48,6 @@ const loop = new Loop((time) => {
     }
     counter++;
 }, '1m');
+
 loop.start('0m');
 Transport.start();
